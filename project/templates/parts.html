@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+    <h1 style="text-align: center">Piezas de OT: {{ wo.id }} - {{ wo.client }} - {{ wo.title }}</h1>
+    {% if parts|length < 1 %}
+    <h4 style="text-align: center">No hay piezas asignadas a la orden de trabajo</h4>
+    {% endif %}
+    <br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Código</th>
+            <th>Creado</th>
+            <th>Creado por</th>
+            <th>Cantidad</th>
+            <th>Terminado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--        The first row is dedicated to add new work orders only-->
+        <tr bgcolor="grey">
+            <form action="/wo/{{ wo.id }}/parts" method="POST">
+                <td>-</td>
+                <td><input type="text" name="name" id="name" placeholder="Nombre de pieza" required></td>
+                <td><input type="text" name="code" id="code" placeholder="Código de pieza" required></td>
+                <td>-</td>
+                <td>-</td>
+                <td><input type="text" name="qty" id="qty" placeholder="Cantidad de piezas" required></td>
+                <td>-</td>
+                <td><input type="submit" value="Nueva pieza" class="button"></td>
+            </form>
+        </tr>
+
+        <!--        Create 1 row for every work order and populate data-->
+        {% for part in parts %}
+        <tr>
+            <td>{{ part.id }}</td>
+            <td>{{ part.name }}</td>
+            <td>{{ part.code }}</td>
+            <td>{{ part.date_created.date() }}</td>
+            <td>{{ part.user }}</td>
+            <td>{{ part.qty }}</td>
+            <td>
+                <label class="checkbox" disabled>
+                    <input type="checkbox" disabled {{ "checked" if part.finished == True else ''}}>
+                </label>
+            </td>
+            <td>
+                <button class="button" onclick="show_hide('{{ part.id }}')">Editar</button>
+            </td>
+        </tr>
+
+        <form action="/update_part/{{ part.id }}" method="POST">
+            <tr id="tr_{{ part.id }}" style="display: none">
+                <td><span class="icon"><i class="fas level-up-alt"></i></span></td>
+                <td><input type="text" name="name" id="name" placeholder="Nombre de pieza" value="{{ part.name }}" required></td>
+                <td><input type="text" name="code" id="code" placeholder="Código de pieza" value="{{ part.code }}" required></td>
+                <td>-</td>
+                <td>-</td>
+                <td><input type="text" name="qty" id="qty" placeholder="Cantidad de piezas" value="{{ part.qty }}" required></td>
+                <td><input type="checkbox" name="finished" id="finished" {{ "checked" if part.finished }} value="finished"></td>
+                <!--                    Delete and update buttons-->
+                <td>
+                    <div class="field is-grouped">
+                        <p class="control"><a class="button is-danger is-outlined"
+                                              href="/delete_part/{{ part.id }}">Eliminar</a></p>
+                        <p class="control"><input type="submit" value="Actualizar" class="button is-primary"></p>
+                        <p class="control">
+                            <button class="button is-info" onclick="show_hide('{{ wo.id }}')">Cancelar</button>
+                        </p>
+                    </div>
+                </td>
+            </tr>
+        </form>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

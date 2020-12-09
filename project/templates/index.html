@@ -1,0 +1,59 @@
+<!-- templates/index.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="columns">
+    <div class="column is-three-fifths is-offset-one-fifth">
+        <div class="card" style="text-align: left">
+            <div class="card-content">
+                <p class="title is-2">SISTEMA DE GESTIÓN DE FABRICACIÓN</p>
+                <p class="title is-3">INTRODUCCIÓN</p>
+                <p>Este proyecto fue concevido para realizar el seguimiento de los distintos elementos
+                    a fabricar en una empresa. Cada elemento que se envíe a fabricar está acompañado
+                    de una orden de trabajo. A su vez, cada elemento podrá estar compuesto por una o más
+                    piezas.
+                </p><br>
+                <p class="title is-3">ORDENES DE TRABAJO</p>
+                <p>Cada orden de trabajo cuenta con un cliente, un nombre de proyecto, y fecha de entrega.
+                    Además, al registrar un nuevo proyecto, se registra el usuario que realizó la carga o
+                    última modificación y la fecha.
+                </p><br>
+                <p class="title is-3 has-text-black">PARTES</p>
+                <p>Cada orden de trabajo está compuesta por partes, que son las piezas constructivas necesarias
+                    para ejecutar la orden de trabajo. Cada pieza cuenta con un nombre, código de identificación y
+                    cantidad. El código de identificación se utiliza para vincular la pieza con los planos de
+                    frabricación.
+                </p>
+            </div>
+        </div>
+        <br>
+
+        <a class="button is-block is-info is-large is-fullwidth" href="/login">COMENZAR</a><br>
+
+        <div class="card" style="text-align: left; color: black">
+            <div class="card-content">
+                <p class="title is-3">GITHUB</p>
+                <p>El código de este proyecto pueden encontrarlo en: <a href="#">AQUÍ</a></p>
+            </div>
+        </div>
+        <br>
+        <div class="card" style="text-align: left; color: black">
+            <div class="card-content">
+                <p class="title is-3">TECNOLOGÍA</p>
+                <p>Este proyecto utiliza:
+                <li style="margin-left: 30px">Python</li>
+                <li style="margin-left: 30px"><a href="https://flask.palletsprojects.com/en/1.1.x/">Flask</a></li>
+                <li style="margin-left: 30px">Jinja2</li>
+                <li style="margin-left: 30px">SQLite</li>
+                <li style="margin-left: 30px">HTML</li>
+                <li style="margin-left: 30px">CSS</li>
+                <li style="margin-left: 30px">JS</li>
+                <br>
+                Se utilizó el framework <a href="https://bulma.io/" title="bulma">Bulma</a> para los estilos gráficos.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
